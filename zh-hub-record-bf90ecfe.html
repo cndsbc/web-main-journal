@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>九游娱乐 · 知识指引台</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+            min-height: 100vh;
+            background: linear-gradient(145deg, #fce4d6 0%, #fde8d0 30%, #f9d9b7 70%, #f5cd9e 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 2rem 1.5rem;
+        }
+
+        .page-grid {
+            max-width: 1300px;
+            width: 100%;
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 2rem;
+        }
+
+        /* 全局卡片风格 —— 暖白圆角 + 轻柔阴影 */
+        .card {
+            background: #fffbf7;
+            border-radius: 28px;
+            box-shadow: 0 10px 28px rgba(180, 120, 70, 0.10), 0 4px 12px rgba(160, 100, 50, 0.06);
+            padding: 2.2rem 2rem;
+            transition: box-shadow 0.2s ease;
+        }
+
+        .card:hover {
+            box-shadow: 0 16px 36px rgba(170, 100, 50, 0.14);
+        }
+
+        /* 头部区域 — 知识库标题 + 简短标识 */
+        .hero-area {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: flex-end;
+            margin-bottom: 0.5rem;
+        }
+
+        .site-label {
+            font-size: 2rem;
+            font-weight: 500;
+            letter-spacing: 1px;
+            color: #7a4b2c;
+            line-height: 1.2;
+        }
+
+        .site-label a {
+            color: #7a4b2c;
+            text-decoration: none;
+            border-bottom: 2px solid transparent;
+            transition: border-color 0.2s;
+        }
+
+        .site-label a:hover {
+            border-bottom-color: #b57c4e;
+        }
+
+        .badge-tag {
+            background: #e5c9b1;
+            color: #4d2e1a;
+            font-size: 0.8rem;
+            font-weight: 500;
+            padding: 0.4rem 1rem;
+            border-radius: 40px;
+            display: inline-block;
+            margin-top: 0.5rem;
+        }
+
+        .subhead {
+            color: #5f3e2a;
+            font-size: 0.95rem;
+            background: #f7ede3;
+            border-radius: 40px;
+            padding: 0.3rem 1.1rem;
+            display: inline-block;
+            margin-top: 0.2rem;
+            font-weight: 450;
+        }
+
+        /* 目录感布局——三栏卡片网格 */
+        .dir-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1.8rem;
+            margin: 1.8rem 0 2rem;
+        }
+
+        @media (min-width: 680px) {
+            .dir-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .dir-grid {
+                grid-template-columns: 1fr 1fr 1fr;
+            }
+        }
+
+        .dir-item {
+            background: #fffffffc;
+            border-radius: 24px;
+            padding: 1.6rem 1.4rem;
+            border: 1px solid #f3e1d3;
+            transition: transform 0.1s ease, background 0.15s;
+        }
+
+        .dir-item:hover {
+            background: #fffcf8;
+            transform: translateY(-2px);
+        }
+
+        .dir-item h3 {
+            font-size: 1.2rem;
+            color: #6b412b;
+            font-weight: 550;
+            margin-bottom: 0.6rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .dir-item h3::before {
+            content: "▹";
+            color: #b6814f;
+            font-size: 1.2rem;
+        }
+
+        .dir-item p {
+            font-size: 0.95rem;
+            line-height: 1.7;
+            color: #3f2c1f;
+        }
+
+        .dir-item .meta-tip {
+            display: inline-block;
+            margin-top: 0.9rem;
+            font-size: 0.8rem;
+            color: #8e6a4c;
+            background: #f4e5d9;
+            padding: 0.2rem 0.9rem;
+            border-radius: 20px;
+        }
+
+        /* 说明区 + 提示区双列 */
+        .info-duo {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1.8rem;
+            margin: 1rem 0 2.2rem;
+        }
+
+        @media (min-width: 600px) {
+            .info-duo {
+                grid-template-columns: 3fr 2fr;
+            }
+        }
+
+        .explain-block {
+            background: #fffbf7;
+            border-radius: 24px;
+            padding: 1.8rem 1.8rem;
+        }
+
+        .explain-block h2 {
+            font-size: 1.38rem;
+            font-weight: 500;
+            color: #4d2e1a;
+            margin-bottom: 0.8rem;
+            border-left: 4px solid #dba278;
+            padding-left: 0.8rem;
+        }
+
+        .explain-block p {
+            font-size: 1rem;
+            line-height: 1.8;
+            color: #322117;
+            margin-bottom: 0.7rem;
+        }
+
+        .explain-block .inset-link {
+            color: #855f3e;
+            text-decoration: none;
+            font-weight: 470;
+            border-bottom: 1px dashed #c9aa8e;
+        }
+
+        .explain-block .inset-link:hover {
+            border-bottom-style: solid;
+            color: #5a3823;
+        }
+
+        .notice-block {
+            background: #fcf4eb;
+            border-radius: 24px;
+            padding: 1.8rem 1.6rem;
+            border-left: 4px solid #dba278;
+        }
+
+        .notice-block h3 {
+            font-size: 1.1rem;
+            font-weight: 550;
+            color: #68432b;
+            margin-bottom: 0.6rem;
+        }
+
+        .notice-block p, .notice-block li {
+            font-size: 0.95rem;
+            line-height: 1.7;
+            color: #3f2b1d;
+        }
+
+        .notice-block ul {
+            list-style: none;
+            padding-left: 0.2rem;
+        }
+
+        .notice-block li {
+            padding: 0.2rem 0 0.2rem 1.2rem;
+            position: relative;
+        }
+
+        .notice-block li::before {
+            content: "•";
+            color: #b37446;
+            font-weight: bold;
+            position: absolute;
+            left: 0.1rem;
+        }
+
+        /* FAQ 摘要区 —— 紧凑卡片 */
+        .faq-digest {
+            background: #fbf3ea;
+            border-radius: 26px;
+            padding: 1.8rem 2rem;
+            margin: 1.5rem 0 0.8rem;
+            border: 1px solid #eddac9;
+        }
+
+        .faq-digest h2 {
+            font-size: 1.3rem;
+            font-weight: 500;
+            color: #4a2c19;
+            margin-bottom: 1rem;
+        }
+
+        .faq-item {
+            padding: 0.5rem 0;
+            border-bottom: 1px solid #e4cfbd;
+        }
+
+        .faq-item:last-child {
+            border-bottom: none;
+        }
+
+        .faq-q {
+            font-weight: 520;
+            color: #5d3922;
+            display: block;
+            margin-bottom: 0.15rem;
+            font-size: 0.98rem;
+        }
+
+        .faq-a {
+            color: #3c281d;
+            font-size: 0.9rem;
+            line-height: 1.6;
+            padding-left: 0.3rem;
+        }
+
+        .faq-a a {
+            color: #855f3e;
+            text-decoration: underline;
+            text-underline-offset: 3px;
+            text-decoration-thickness: 1px;
+            text-decoration-color: #dbb492;
+        }
+
+        .faq-a a:hover {
+            color: #4f311f;
+            text-decoration-color: #8a5f40;
+        }
+
+        /* 相关信息区 — 简洁脚注风格 */
+        .related-footer {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 1.8rem;
+            padding-top: 1rem;
+            border-top: 2px solid #eedbcb;
+            gap: 1rem;
+        }
+
+        .related-links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.2rem 2rem;
+        }
+
+        .related-links a {
+            color: #684b35;
+            text-decoration: none;
+            font-size: 0.9rem;
+            border-bottom: 1px dotted #d6b99f;
+        }
+
+        .related-links a:hover {
+            color: #3d2819;
+            border-bottom-style: solid;
+        }
+
+        .credit-note {
+            font-size: 0.8rem;
+            color: #7f6249;
+        }
+
+        hr {
+            border: none;
+            border-top: 1px solid #eedbcb;
+            margin: 1.2rem 0;
+        }
+
+        /* 响应式细致调整 */
+        @media (max-width: 480px) {
+            body {
+                padding: 1.2rem 0.8rem;
+            }
+            .card {
+                padding: 1.5rem 1.2rem;
+            }
+            .site-label {
+                font-size: 1.6rem;
+            }
+            .dir-item {
+                padding: 1.3rem 1rem;
+            }
+            .explain-block {
+                padding: 1.4rem;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="page-grid">
+
+    <!-- 主卡片容器 -->
+    <div class="card">
+
+        <!-- hero + 标识 -->
+        <div class="hero-area">
+            <div>
+                <div class="site-label">
+                    <a href="https://zh-hub-jiuyou.com">九游娱乐</a>
+                </div>
+                <span class="badge-tag">知识库 · 指引</span>
+                <div class="subhead">从识别到理解</div>
+            </div>
+            <div style="text-align: right; font-size: 0.85rem; color: #6b4d37;">
+                <span style="background: #f2e1d3; padding: 0.1rem 0.9rem; border-radius: 30px;">索引版</span>
+            </div>
+        </div>
+
+        <!-- 目录感布局：三个特点/场景卡片 -->
+        <div class="dir-grid">
+            <div class="dir-item">
+                <h3>快速定位</h3>
+                <p>理清平台的功能分区与内容类别，不必在陌生页面中反复寻找。每个模块背后都有明确的用途说明。</p>
+                <span class="meta-tip">📂 分类导览</span>
+            </div>
+            <div class="dir-item">
+                <h3>术语说明</h3>
+                <p>遇到不熟悉的名称或概念？知识库整理常见词汇与操作逻辑，降低理解门槛，让浏览更顺畅。</p>
+                <span class="meta-tip">📘 释义对照</span>
+            </div>
+            <div class="dir-item">
+                <h3>路径参考</h3>
+                <p>从首页到各个子版块，提供通用的访问思路与结构提示，辅助用户建立对站点的全局认识。</p>
+                <span class="meta-tip">🧭 结构示意</span>
+            </div>
+        </div>
+
+        <!-- 说明区 + 提示区 双栏 -->
+        <div class="info-duo">
+            <div class="explain-block">
+                <h2>关于这个站点</h2>
+                <p>
+                    <a href="https://zh-hub-jiuyou.com" class="inset-link">九游娱乐</a> 是一个面向特定兴趣领域的聚合平台，内容涵盖资讯、互动与资源索引。
+                    对于初次接触的用户而言，了解站点布局与信息分类方式，有助于更高效地找到自己感兴趣的部分。
+                </p>
+                <p>
+                    本指引页以知识库入口的形式，将常见的功能分区、使用场景以及提示信息集中呈现。
+                    你可以将它视为一张“索引地图”，不必逐页翻阅即可大致了解平台的结构。
+                </p>
+                <p style="margin-top: 0.5rem; font-style: italic; color: #5e3d2a;">
+                    —— 从宏观到具体，让信息获取更有条理。
+                </p>
+            </div>
+            <div class="notice-block">
+                <h3>📎 使用提示</h3>
+                <ul>
+                    <li>站内内容以分类目录组织，建议先浏览顶部导航或侧边栏。</li>
+                    <li>部分区域包含动态内容，刷新页面可获取最新信息。</li>
+                    <li>若遇到无法访问的版块，可返回首页重新进入尝试。</li>
+                    <li>移动端与桌面端布局基本一致，仅卡片排列略有调整。</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- FAQ 摘要区 -->
+        <div class="faq-digest">
+            <h2>常见疑问 · 摘要</h2>
+            <div class="faq-item">
+                <span class="faq-q">❓ 如何快速找到某个主题的内容？</span>
+                <div class="faq-a">建议先使用站内搜索功能（如果有），或顺着导航栏的一级分类逐层进入。知识库中也整理了分类关键词。</div>
+            </div>
+            <div class="faq-item">
+                <span class="faq-q">❓ 平台是否持续更新？</span>
+                <div class="faq-a">内容维护有固定周期，部分板块会根据反馈调整。你可以通过主站 <a href="https://zh-hub-jiuyou.com">九游娱乐</a> 关注最近更新动态。</div>
+            </div>
+            <div class="faq-item">
+                <span class="faq-q">❓ 指引中提到的“知识库”在哪里？</span>
+                <div class="faq-a">本页面即知识库的入口之一，后续可能会扩展为独立的子页面，届时会在站内添加链接说明。</div>
+            </div>
+        </div>
+
+        <!-- 相关信息区 + 脚注 -->
+        <div class="related-footer">
+            <div class="related-links">
+                <a href="https://zh-hub-jiuyou.com">九游娱乐</a>
+                <span style="color: #b4957a;">·</span>
+                <span style="color: #6c503b;">索引版 2025</span>
+            </div>
+            <div class="credit-note">
+                <span>📋 内容仅供参考，页面结构可能随时间调整。</span>
+            </div>
+        </div>
+
+        <!-- 极简分割 + 补充信息（自然嵌入式链接） -->
+        <hr>
+        <p style="font-size: 0.9rem; color: #5d3e2b; line-height: 1.6;">
+            如果你希望进一步了解平台的整体定位与历史沿革，可以前往 
+            <a href="https://zh-hub-jiuyou.com" style="color: #7a5538; text-decoration: underline; text-underline-offset: 2px;">九游娱乐</a> 
+            浏览更多内容。本页作为辅助入口，旨在降低导航成本，提供分类视角。
+        </p>
+
+    </div> <!-- /card -->
+</div> <!-- /page-grid -->
+</body>
+</html>
