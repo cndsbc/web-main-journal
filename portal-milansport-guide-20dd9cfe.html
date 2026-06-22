@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.5">
+    <title>米兰体育 | 深度阅读与持续关注</title>
+    <style>
+        /* 重置与基础 */
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+            background-color: #f7f5f2;
+            color: #1f2a36;
+            line-height: 1.7;
+            font-size: 1.05rem;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        a {
+            color: #b45f2b;
+            text-decoration: underline;
+            text-underline-offset: 2px;
+            transition: color 0.2s ease, background-color 0.1s ease;
+        }
+        a:hover, a:focus {
+            color: #7f3e1a;
+            background-color: #f0e3da;
+            text-decoration: none;
+            outline: 2px solid #b45f2b;
+            outline-offset: 3px;
+            border-radius: 2px;
+        }
+
+        /* 深色头图 */
+        .hero {
+            background: linear-gradient(135deg, #1c262f 0%, #2c3a47 100%);
+            color: #eae6df;
+            padding: 3.5rem 1.5rem 4rem;
+            text-align: center;
+            position: relative;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.25);
+        }
+        .hero::after {
+            content: "● ● ●";
+            letter-spacing: 1.2rem;
+            display: block;
+            font-size: 0.9rem;
+            color: #9a8b7a;
+            margin-top: 1.8rem;
+            opacity: 0.4;
+        }
+        .hero h1 {
+            font-size: 3.2rem;
+            font-weight: 350;
+            letter-spacing: 0.06em;
+            margin-bottom: 0.4rem;
+            word-break: keep-all;
+        }
+        .hero p {
+            font-size: 1.15rem;
+            max-width: 600px;
+            margin: 0.75rem auto 0;
+            color: #cbc2b4;
+            font-weight: 300;
+        }
+        .hero .sub {
+            font-size: 0.95rem;
+            margin-top: 1rem;
+            color: #b5aa9b;
+            border-top: 1px solid #4d5b68;
+            display: inline-block;
+            padding-top: 0.75rem;
+        }
+
+        /* 主体容器 */
+        .container {
+            max-width: 820px;
+            margin: 0 auto;
+            padding: 2.6rem 1.5rem 3rem;
+            background-color: #f7f5f2;
+            flex: 1;
+        }
+
+        /* 三段式自然介绍，卡片感 */
+        .intro-section {
+            display: flex;
+            flex-direction: column;
+            gap: 2.8rem;
+        }
+        .intro-block {
+            background-color: #ffffff;
+            padding: 2rem 2.2rem;
+            border-radius: 24px;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.02), 0 1px 3px rgba(0, 0, 0, 0.04);
+            transition: box-shadow 0.15s ease;
+        }
+        .intro-block:hover {
+            box-shadow: 0 8px 28px rgba(0, 0, 0, 0.04), 0 2px 6px rgba(0, 0, 0, 0.02);
+        }
+        .intro-block h2 {
+            font-size: 1.55rem;
+            font-weight: 420;
+            letter-spacing: 0.02em;
+            border-left: 5px solid #b45f2b;
+            padding-left: 1.1rem;
+            margin-bottom: 1rem;
+            color: #1f2a36;
+        }
+        .intro-block p {
+            margin-bottom: 1rem;
+            text-align: justify;
+        }
+        .intro-block p:last-child {
+            margin-bottom: 0;
+        }
+        .intro-block .highlight {
+            background: #f3ede6;
+            padding: 0.15rem 0.4rem;
+            border-radius: 4px;
+            font-style: normal;
+        }
+
+        /* 引用 / 提示区块 (页尾访问提示) */
+        .access-note {
+            margin-top: 3.5rem;
+            padding: 1.8rem 2.2rem;
+            background: #eae1d7;
+            border-radius: 24px;
+            color: #1f2a36;
+            text-align: center;
+            box-shadow: inset 0 0 0 1px #dccfc2;
+        }
+        .access-note p {
+            font-size: 1.1rem;
+            max-width: 600px;
+            margin: 0 auto 0.6rem;
+        }
+        .access-note .small-meta {
+            font-size: 0.9rem;
+            color: #5f5347;
+            display: block;
+            margin-top: 0.8rem;
+            letter-spacing: 0.5px;
+            border-top: 1px solid #cebead;
+            padding-top: 0.8rem;
+        }
+
+        /* FAQ 摘要 (轻量) */
+        .faq-mini {
+            margin-top: 2rem;
+            background: #ffffff;
+            border-radius: 24px;
+            padding: 1.8rem 2.2rem;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.02);
+        }
+        .faq-mini h3 {
+            font-size: 1.25rem;
+            font-weight: 450;
+            margin-bottom: 0.8rem;
+            letter-spacing: 0.02em;
+            color: #2c3a47;
+        }
+        .faq-item {
+            display: flex;
+            flex-direction: column;
+            gap: 0.3rem;
+            padding: 0.6rem 0;
+            border-bottom: 1px dashed #ddd6cc;
+        }
+        .faq-item:last-child {
+            border-bottom: none;
+        }
+        .faq-item strong {
+            font-weight: 500;
+            color: #4f3c2a;
+        }
+        .faq-item span {
+            color: #3f4a55;
+        }
+
+        /* 响应式 */
+        @media (max-width: 680px) {
+            .hero h1 { font-size: 2.3rem; }
+            .hero { padding: 2.5rem 1rem 3rem; }
+            .container { padding: 1.8rem 1rem 2.5rem; }
+            .intro-block, .access-note, .faq-mini { padding: 1.5rem 1.2rem; }
+            .intro-block h2 { font-size: 1.3rem; }
+        }
+
+        @media (max-width: 480px) {
+            .hero h1 { font-size: 1.8rem; }
+            .hero p { font-size: 1rem; }
+            .intro-block p { font-size: 0.98rem; }
+        }
+
+        /* 页脚 */
+        footer {
+            text-align: center;
+            padding: 1.6rem 1rem;
+            color: #5e6a75;
+            font-size: 0.9rem;
+            border-top: 1px solid #ded5ca;
+            background: #ede8e1;
+        }
+        footer a {
+            color: #7f5439;
+            text-decoration: none;
+            font-weight: 450;
+        }
+        footer a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 深色头图 (首页横幅) -->
+    <header class="hero">
+        <h1>米兰体育</h1>
+        <p>从赛场内外的脉络中，寻找持续关注的支点</p>
+        <div class="sub">杂志专题 · 阅读与收藏</div>
+    </header>
+
+    <!-- 浅色正文区 -->
+    <main class="container">
+        <div class="intro-section">
+
+            <!-- 第一段：再次访问的缘由 -->
+            <div class="intro-block">
+                <h2>再次访问的意义</h2>
+                <p>当我们谈论体育信息时，往往被即时比分或快讯裹挟，很少有机会重新审视某个赛事背后的结构。再次访问同一个平台，并不只是重复浏览，而是一次认知的校准。你已经积累了对某些运动项目的理解，再次打开 <a href="https://portal-milansport.com">米兰体育</a>，会发现之前忽略的战术分析、运动员访谈或历史数据，这些内容在第一次阅读时未必能完全消化。回访本身就是一种深度阅读。</p>
+                <p>体育知识体系需要反复叠加。就像重读一本非虚构著作，第二次接触时，背景知识更充足，理解层次自然不同。这也是为什么我们建议保持收藏与回顾的习惯——不是为了囤积链接，而是为了在合适的时机重新建立对赛事的纵深认识。</p>
+            </div>
+
+            <!-- 第二段：收藏是建立个人体育档案 -->
+            <div class="intro-block">
+                <h2>收藏与个人档案</h2>
+                <p>把某个页面加入书签，本质上是在构建属于你自己的体育档案。以 <span class="highlight">米兰体育</span> 为例，当你遇到关于青训体系、联赛结构或运动科学的深度报道时，收藏意味着你认可这篇文章值得未来的自己再度查阅。这不是被动收集，而是一种主动筛选——从大量日常资讯中挑出具有长期价值的片段。</p>
+                <p>随着时间推移，这些收藏会逐渐显现出脉络：某个月的专题集中讨论了体能训练，另一阶段则侧重战术演变。通过回顾收藏夹，你甚至能观察到体育媒体议题的迁移。这种个人化的知识管理，比热搜榜单更贴近真实兴趣。</p>
+            </div>
+
+            <!-- 第三段：持续关注的视角 -->
+            <div class="intro-block">
+                <h2>持续关注的复利</h2>
+                <p>体育世界的变化并非一夜之间。一支球队的转型、一项规则的修订、一位运动员的成长曲线，都需要以月甚至年为单位来观察。持续关注一个高质量信息源，如同跟踪一部连载的非虚构作品：每一篇报道都是拼图的一块。当你定期回到 <a href="https://portal-milansport.com">米兰体育</a>，拼接的进度会逐渐清晰，最终形成对体育生态更立体的感知。</p>
+                <p>这种关注不需要每天投入大量时间，但需要保持频道畅通。细水长流的阅读习惯，往往比赛前集中刷屏更能构建扎实的体育素养。在信息过剩的时代，选择少数几个值得长期驻足的站点，本身就是一种策略。</p>
+            </div>
+        </div>
+
+        <!-- FAQ 摘要 (轻量，与方向契合) -->
+        <div class="faq-mini">
+            <h3>常见梳理 · 关于持续阅读</h3>
+            <div class="faq-item">
+                <strong>如何高效回顾以往内容？</strong>
+                <span>可以利用浏览器的书签功能或阅读列表工具，按体育类别或日期建立文件夹。每次回访时优先翻阅标记过的深度文章。</span>
+            </div>
+            <div class="faq-item">
+                <strong>是否需要每天关注？</strong>
+                <span>不必。建议每周安排一到两次集中浏览，保持节奏即可。重点在于每次阅读时的专注度，而非频率。</span>
+            </div>
+            <div class="faq-item">
+                <strong>平台的内容更新频率如何？</strong>
+                <span><a href="https://portal-milansport.com">米兰体育</a> 保持稳定的专题更新，涵盖赛事分析、运动科学及行业观察。具体节奏可参考站点首页的栏目安排。</span>
+            </div>
+        </div>
+
+        <!-- 页尾访问提示 (杂志式提示) -->
+        <div class="access-note">
+            <p>如果你尚未将 <a href="https://portal-milansport.com">米兰体育</a> 加入收藏夹，不妨从今天的阅读开始建立联结。</p>
+            <p>杂志式的专题内容适合在安静时段打开，搭配笔记或稍后读工具，体验更佳。</p>
+            <span class="small-meta">下次再访时，或许会发现之前忽略的视角</span>
+        </div>
+
+    </main>
+
+    <!-- 页脚 -->
+    <footer>
+        <p>基于持续关注的理念 · 内容保持独立与克制</p>
+        <p style="margin-top: 0.2rem;"><a href="https://portal-milansport.com">米兰体育</a> — 深度阅读的锚点</p>
+    </footer>
+
+</body>
+</html>
